@@ -1,45 +1,75 @@
-<div class="container">
-  <h1 id="title">Nhật ký của tôi</h1>
-
-  <div class="journal-entry" id="entry-0">
-    <h2>16/05/2025</h2>
-    <p>Hôm nay mình bắt đầu học về cách tạo trang web cá nhân. Cảm thấy rất thú vị!</p>
-  </div>
-
-  <div class="journal-entry" id="entry-1" style="display: none;">
-    <h2>21/05/2025</h2>
-    <p>Hôm nay mình tiếp tục tìm hiểu về cách viết nhật ký trên web. Nhờ ChatGPT hướng dẫn mà mình nắm được các bước cơ bản.</p>
-  </div>
-
-  <!-- Thêm các entry khác nếu muốn -->
-</div>
-<script>
-  let currentEntry = 0;
-  const entries = document.querySelectorAll('.journal-entry');
-
-  function showEntry(index) {
-    entries.forEach((entry, i) => {
-      entry.style.display = (i === index) ? 'block' : 'none';
-    });
-  }
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  document.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-  });
-
-  document.addEventListener('touchend', e => {
-    touchEndX = e.changedTouches[0].screenX;
-    const swipeDistance = touchEndX - touchStartX;
-
-    if (swipeDistance > 100 && currentEntry > 0) {
-      currentEntry--;
-      showEntry(currentEntry);
-    } else if (swipeDistance < -100 && currentEntry < entries.length - 1) {
-      currentEntry++;
-      showEntry(currentEntry);
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhật ký</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .journal-entry {
+      display: none;
     }
-  });
-</script>
+    .journal-entry.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Trang chủ</a>
+    <a href="about.html">Giới thiệu</a>
+    <a href="contact.html">Liên hệ</a>
+    <a href="journal.html">Nhật ký</a>
+  </nav>
+
+  <div class="container">
+    <h1 style="color: darkgreen;" class="animate-text">Nhật ký của tôi</h1>
+
+    <div class="journal-entry active" id="entry-0">
+      <h2>16/05/2025</h2>
+      <p>Hôm nay mình bắt đầu học về cách tạo trang web cá nhân. Cảm thấy rất thú vị!</p>
+    </div>
+
+    <div class="journal-entry" id="entry-1">
+      <h2>21/05/2025</h2>
+      <p>Hôm nay mình tiếp tục tìm hiểu về cách viết nhật ký trên web. Nhờ ChatGPT hướng dẫn mà mình nắm được các bước cơ bản.</p>
+    </div>
+
+    <div class="journal-entry" id="entry-2">
+      <h2>22/05/2025</h2>
+      <p>Tiếp tục cải thiện giao diện và thêm hiệu ứng vuốt. Cảm giác rất tự hào!</p>
+    </div>
+  </div>
+
+  <script>
+    let currentEntry = 0;
+    const entries = document.querySelectorAll('.journal-entry');
+
+    function showEntry(index) {
+      entries.forEach((entry, i) => {
+        entry.classList.toggle('active', i === index);
+      });
+    }
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    document.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (swipeDistance > 100 && currentEntry > 0) {
+        currentEntry--;
+        showEntry(currentEntry);
+      } else if (swipeDistance < -100 && currentEntry < entries.length - 1) {
+        currentEntry++;
+        showEntry(currentEntry);
+      }
+    });
+  </script>
+</body>
+</html
